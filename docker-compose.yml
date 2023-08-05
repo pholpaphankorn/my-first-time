@@ -9,7 +9,7 @@ services:
     environment:
       - DATABASE_DB=${MARIADB_DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWORD=/run/secrets/db-password
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
       - NODE_ENV=${NODE_ENV}
@@ -18,8 +18,8 @@ services:
       - ${EXPRESS_PORT}:${EXPRESS_PORT}
       - ${EXPRESS_DEBUGGING_PORT}:${EXPRESS_DEBUGGING_PORT}
       - ${EXPRESS_TESTING_PORT}:${EXPRESS_TESTING_PORT}
-    secrets:
-      - db-password
+    # secrets:
+    #   - db-password
     volumes:
       - ./src:/code/src:ro
       - ./package.json:/code/package.json
@@ -39,21 +39,22 @@ services:
     #image: mysql:8.0.27
     command: '--default-authentication-plugin=mysql_native_password'
     restart: always
-    secrets:
-      - db-password
+    # secrets:
+    #   - db-password
     volumes:
       - db-data:/var/lib/mysql
     networks:
       - private
     environment:
       - MYSQL_DATABASE=${MARIADB_DATABASE_NAME}
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+      # - MYSQL_ROOT_PASSWORD_FILE=${DATABASE_PASSWORD}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
 networks:
   public:
   private:
 volumes:
   back-notused:
   db-data:
-secrets:
-  db-password:
-    file: secrets/db-password.txt
+# secrets:
+#   db-password:
+#     password: secrets/db-password.txt
