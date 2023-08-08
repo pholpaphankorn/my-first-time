@@ -20,7 +20,7 @@ const app: express.Application = express();
 app.use(morgan("common"));
 
 app.get("/", function(req: Request, res: Response, next: NextFunction): void {
-  res.send("!!Caution!! Don't read this. Why do you keep reading? Stop it. Nooooo......    Hello Mom!\n");
+  res.send("!!Caution!! Don't read this. Why do you keep reading? Stop it. Nooooo......    Nothing!\n");
 });
 
 app.get("/healthz", function(req: Request, res: Response): void {
